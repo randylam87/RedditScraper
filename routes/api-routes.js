@@ -1,5 +1,6 @@
 const request = require('request');
 const cheerio = require('cheerio');
+const q = require('q');
 
 module.exports = function (app) {
     let bloombergurls = [];
@@ -8,6 +9,10 @@ module.exports = function (app) {
             bloomberg: bloombergurls
         }
         res.render('home', hbsObj);
+    });
+
+    app.get('/scrape',(req,res)=>{
+
     });
 
     request('https://www.bloomberg.com/technology', function (err, res, body) {
