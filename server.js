@@ -1,7 +1,6 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
 const bodyParser = require('body-parser')
-const mongoose = require('mongoose');
 const path = require('path');
 // const database = require("./models");
 
@@ -24,7 +23,7 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 // Connect to database
-// mongoose.connect('mongodb://localhost/my_database');
+// mongoose.connect('mongodb://localhost/articles');
 
 require("./routes/api-routes.js")(app);
 // Server on

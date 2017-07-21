@@ -1,31 +1,37 @@
 const request = require('request');
 const cheerio = require('cheerio');
-const q = require('q');
+// const db = require("../models");
 
 module.exports = function (app) {
-    let bloombergurls = [];
     app.get('/', (req, res) => {
-        let hbsObj = {
-            bloomberg: bloombergurls
-        }
-        res.render('home', hbsObj);
+        bloombergRequest(res);
     });
 
-    app.get('/scrape',(req,res)=>{
-
+    app.get('/scrape', (req, res) => {
+        bloombergRequest(res);
     });
-
-    request('https://www.bloomberg.com/technology', function (err, res, body) {
-        if (!err && res.statusCode == 200) {
-            let $ = cheerio.load(body);
-            $('.story-list-article__content a').each(function (i, element) {
-                let url = $(element).attr('href');
-                let title = $(element).text();
-                bloombergurls.push({
-                    url: url,
-                    title: title
+    app.get('/test', (req,res)=>{
+        console.log('test works');
+    });
+    
+    let bloombergRequest = (res) => {
+        let bloombergurls = [];
+        request('https://www.bloomberg.com/technology', function (err, response, body) {
+            if (!err && response.statusCode == 200) {
+                let $ = cheerio.load(body);
+                $('.story-list-article__content a').each(function (i, element) {
+                    let url = $(element).attr('href');
+                    let title = $(element).text();
+                    bloombergurls.push({
+                        url: url,
+                        title: title
+                    });
                 });
-            });
-        }
-    });
+                let hbsObj = {
+                    bloomberg: bloombergurls
+                }
+                res.render('home', hbsObj);
+            }
+        });
+    }
 };
