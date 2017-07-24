@@ -4,34 +4,39 @@ const cheerio = require('cheerio');
 
 module.exports = function (app) {
     app.get('/', (req, res) => {
-        bloombergRequest(res);
+        eyeBleachRequest(res,(data)=>{
+            let hbsObj = {
+                reddit: data
+            };
+            console.log(hbsObj);
+            res.render('home',hbsObj);
+        });
+        
     });
 
     app.get('/scrape', (req, res) => {
-        bloombergRequest(res);
+        eyeBleachRequest(res);
     });
-    app.get('/test', (req,res)=>{
-        console.log('test works');
-    });
-    
-    let bloombergRequest = (res) => {
-        let bloombergurls = [];
-        request('https://www.bloomberg.com/technology', function (err, response, body) {
-            if (!err && response.statusCode == 200) {
-                let $ = cheerio.load(body);
-                $('.story-list-article__content a').each(function (i, element) {
-                    let url = $(element).attr('href');
-                    let title = $(element).text();
-                    bloombergurls.push({
-                        url: url,
-                        title: title
-                    });
+
+    let eyeBleachRequest = (res,cb) => {
+        let url = 'https://www.reddit.com/r/eyebleach';
+        let eyeBleachArr = [];
+        request(url, (error, response, body) => {
+            const $ = cheerio.load(body);
+            $('div.thing').each((i, element) => {
+                let title = $(element).children("div.entry").children("div.top-matter").children("p.title").children().contents().get(0).nodeValue;
+                let thumbnail = $(element).children("a").children("img").attr("src");
+                let url = $(element).attr("data-url");
+                let dataId = $(element).attr("data-fullname");
+                eyeBleachArr.push({
+                    "title": title,
+                    "thumbnail": thumbnail,
+                    "url": url,
+                    "id": dataId
                 });
-                let hbsObj = {
-                    bloomberg: bloombergurls
-                }
-                res.render('home', hbsObj);
-            }
+            });
+            cb(eyeBleachArr);
         });
-    }
+
+    };
 };

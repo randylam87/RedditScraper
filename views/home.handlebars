@@ -1,12 +1,12 @@
 {{>navbar/nav}}
 <div class="panel panel-info">
     <div class="panel panel-heading">
-        <h1 class='panel-title'>Bloomberg Technology Articles</h1>
+        <h1 class='panel-title'>Eye Bleach</h1>
     </div>
      <div class="panel panel-body"> 
         <ul id='bloomberg-articles'>
-            {{#each bloomberg}}
-            <li class='bloomberg-article list-unstyled'><a href="https://www.bloomberg.com{{url}}">{{title}}</a></li><hr> 
+            {{#each reddit}}
+            <li class='bloomberg-article list-unstyled'><a href="{{url}}">{{title}}{{thumbnail}}</a></li><hr> 
             {{/each}}
         </ul>
      </div> 
