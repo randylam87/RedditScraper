@@ -3,10 +3,14 @@
     <div class="panel panel-heading">
         <h1 class='panel-title'>Eye Bleach</h1>
     </div>
-     <div class="panel panel-body"> 
-        <ul id='bloomberg-articles'>
-            {{#each reddit}}
-            <li class='bloomberg-article list-unstyled'><a href="{{url}}">{{title}}{{thumbnail}}</a></li><hr> 
-            {{/each}}
-        </ul>
-     </div> 
+    <div class="panel panel-body" id='eye-bleach-container'>
+
+        {{#each reddit}}
+        <div class="eye-bleach-div col-sm-3 text-center">
+            <button class='btn btn-danger btn-sm favorite'>Favorite</button>
+            <a href='{{url}}'><img class='thumbnail' src='{{thumbnail}}'></a>
+        </div>
+        {{/each}}
+
+    </div>
+</div>
