@@ -20,7 +20,7 @@ module.exports = function (app) {
     });
 
     let eyeBleachRequest = (res, cb) => {
-        let url = 'https://www.reddit.com/r/eyebleach';
+        let url = 'https://www.reddit.com/r/eyebleach/?limit=100';
         let eyeBleachArr = [];
         request(url, (error, response, body) => {
             const $ = cheerio.load(body);

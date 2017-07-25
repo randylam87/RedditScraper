@@ -23,7 +23,7 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 // Connect to database
-// mongoose.connect('mongodb://localhost/articles');
+mongoose.connect('mongodb://localhost/reddit');
 
 require("./routes/api-routes.js")(app);
 // Server on
