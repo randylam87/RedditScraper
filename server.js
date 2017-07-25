@@ -1,8 +1,8 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const path = require('path');
-// const database = require("./models");
+const mongoose = require('mongoose');
 
 // Global Variables
 const app = express();

@@ -1,6 +1,7 @@
 const request = require('request');
 const cheerio = require('cheerio');
-// const db = require("../models");
+const EyeBleach = require("../models/eyebleach.js");
+const Note = require("../models/notes.js");
 
 module.exports = function (app) {
     app.get('/', (req, res) => {
@@ -16,6 +17,25 @@ module.exports = function (app) {
     app.get('/scrape', (req, res) => {
         eyeBleachRequest(res, (data) => {
             res.send(data);
+        });
+    });
+
+    app.get('/allFavorites',(req,res)=>{
+        EyeBleach.find({}, (error, doc) => {
+            console.log(doc);
+            res.send(doc);
+        });
+    });
+
+    app.post('/favorite', (req,res)=>{
+        console.log(req.body);
+        let favoriteEyeBleach = new EyeBleach(req.body);
+        favoriteEyeBleach.save((err,doc)=>{
+            if (err) {
+                console(err);
+            } else {
+                res.send(doc);
+            }
         });
     });
 

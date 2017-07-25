@@ -3,7 +3,7 @@ mongoose.Promise = global.Promise;
 let Schema = mongoose.Schema;
 
 let EyeBleachSchema = new Schema({
-  title: {
+    title: {
         type: String
     },
     url: {
