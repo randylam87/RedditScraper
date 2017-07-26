@@ -15,15 +15,18 @@ module.exports = function (app) {
     });
 
     app.get('/scrape', (req, res) => {
+        console.log(req.body);
         eyeBleachRequest(res, (data) => {
             res.send(data);
         });
     });
 
-    app.get('/allFavorites',(req,res)=>{
+    app.get('/favorites',(req,res)=>{
         EyeBleach.find({}, (error, doc) => {
-            console.log(doc);
-            res.send(doc);
+            let hbsObj = {
+                reddit: doc
+            }
+            res.render('favorites',hbsObj);
         });
     });
 

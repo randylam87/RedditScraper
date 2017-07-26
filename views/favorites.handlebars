@@ -5,21 +5,46 @@
     </div>
     <div class="panel panel-body col-sm-12" id='bleach-container'>
 
-        {{!-- {{#each reddit}}
-        <div class="eye-bleach-container col-sm-2 text-center">
-            <div class='row'>
-                <div class='eye-bleach-title col-sm-12'><strong>{{title}}</strong></div>
-            </div>
-            <div class='row'>
-                <div class='eye-bleach-img col-sm-6'>
-                    <a href='{{url}}'><img class='thumbnail' src='{{thumbnail}}'></a>
+        {{#each reddit}}
+        <a href='{{url}}'>
+            <div class="eye-bleach-container col-sm-3 text-center" style="background-image: url('{{thumbnail}}')">
+                <div class='row'>
+                    <div class='eye-bleach-title col-sm-12'><strong>{{title}}</strong></div>
                 </div>
-                <div class='favorite-div col-sm-6'>
-                    <button class='btn btn-danger btn-sm favorite'>Favorite</button>
-                </div>
-            </div>
-        </div>
-        {{/each}} --}}
+                <div class='row'>
+                    <div class='eye-bleach-img col-sm-6'>
 
+                    </div>
+                    <div class='favorite-div col-sm-6'>
+                        <button class='btn btn-danger btn-sm favorite-notes' data-toggle="modal" data-target="#noteModal">Note</button>
+                        <button class='btn btn-danger btn-sm delete-notes'>Delete Note</button>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {{/each}}
     </div>
 </div>
+
+
+{{!-- Note Modal --}}
+<!-- Modal -->
+<div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Notes: </h4>
+            </div>
+            <div class="modal-body">
+                Notes:
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="save-notes">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src='../assets/js/favorites.js'></script>

@@ -6,20 +6,21 @@
     <div class="panel panel-body col-sm-12" id='bleach-container'>
 
         {{#each reddit}}
-        <div class="eye-bleach-container col-sm-2 text-center">
-            <div class='row'>
-                <div class='eye-bleach-title col-sm-12'><strong>{{title}}</strong></div>
-            </div>
-            <div class='row'>
-                <div class='eye-bleach-img col-sm-6'>
-                    <a href='{{url}}'><img class='thumbnail' src='{{thumbnail}}'></a>
+        <a href='{{url}}'>
+            <div class="eye-bleach-container col-sm-3 text-center" style="background-image: url('{{thumbnail}}')">
+                <div class='row'>
+                    <div class='eye-bleach-title col-sm-12'><strong>{{title}}</strong></div>
                 </div>
-                <div class='favorite-div col-sm-6'>
-                    <button class='btn btn-danger btn-sm favorite' data-url='{{url}}' data-thumbnail='{{thumbnail}}' data-title='{{title}}'>Favorite</button>
-                </div>
-            </div>
-        </div>
-        {{/each}}
+                <div class='row'>
+                    <div class='eye-bleach-img col-sm-6'>
 
+                    </div>
+                    <div class='favorite-div col-sm-6'>
+                        <button class='btn btn-danger btn-sm favorite' data-url='{{url}}' data-thumbnail='{{thumbnail}}' data-title='{{title}}'>Favorite</button>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {{/each}}
     </div>
 </div>
