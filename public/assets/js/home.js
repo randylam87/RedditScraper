@@ -19,7 +19,7 @@ let appendEyeBleach = (scrape) => {
                     <a href='${url}'><img class='thumbnail' src='${thumbnail}'></a>
                 </div>
                 <div class='favorite-div col-sm-6'>
-                    <button class='btn btn-danger btn-sm favorite' data-url="${url}" data-thumbnail="${thumbnail}" data-title="${title}">Favorite</button>
+                    <button class='btn btn-danger btn-sm favorite' data-url="${url}" data-thumbnail="${thumbnail}" data-title="${title}" data-upvotes="${upvotes}" data-commentsUrl="${commentsUrl}">Favorite</button>
                 </div>
             </div>
         </div>
@@ -30,17 +30,22 @@ let appendEyeBleach = (scrape) => {
 
 // Sends favoriteObj to /favorite api-route to evaluate for duplicates
 let favorite = (event) => {
-  let favoriteObj = {
+  $.post('/favorite', {
     title: $(event.currentTarget).data('title'), // ES6 needs event.currentTarget = $(this)
     url: $(event.currentTarget).data('url'),
-    thumbnail: $(event.currentTarget).data('thumbnail')
-  };
-  $.post('/favorite', favoriteObj);
+    thumbnail: $(event.currentTarget).data('thumbnail'),
+    upvotes: $(event.currentTarget).data('upvotes'),
+    comments: $(event.currentTarget).data('comments')
+  })
+  .done((results)=>{
+    console.log(results);
+  });
+  console.log($(event.currentTarget).parents('div.eye-bleach-container')[0]);
+  
 };
 
 
 let getCurrentScrape = function () {
-  console.log(`getCurrentScrape was clicked`);
   let urls = [];
   // Loops through the DOM to get all currently scrapped items
   for (i = 0; i < $('.favorite').length; i++) {
@@ -50,21 +55,20 @@ let getCurrentScrape = function () {
   let urlsObj = {
     "urls": urls
   };
-  $.get('/scrape', urlsObj, (data) => {
-    console.log('response from get request');
-    console.log(`return data: ${data}`);
-  },JSON);
+  $.get('/scrape', urlsObj)
+  .done((data) => {
+    // Data returns an object with an array of new urls (newlyScraped) and the length of the array (numofItems)
+    console.log(`return data: ${data.numOfItems}`);
+  }, JSON);
 };
 
 // Event handlers
 $('#btn-scrape').on('click', () => {
   // Sends an array of objects to the sever to process for duplicates
   getCurrentScrape();
-  // Scrapes reddit/r/EyeBleach for top 100 posts
-  // getEyeBleach();
 });
 
-$('#bleach-container').on('click', '.favorite', (event) => {
+$('#append-bleach-container').on('click', '.favorite', (event) => {
   // Add item to favorites list
   favorite(event);
 });

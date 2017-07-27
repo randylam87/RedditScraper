@@ -12,7 +12,10 @@ let EyeBleachSchema = new Schema({
     thumbnail: {
         type: String
     },
-    redditId: {
+    upvotes: {
+        type: String
+    },
+    comments: {
         type: String
     },
     notes: [{

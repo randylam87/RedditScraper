@@ -6,29 +6,36 @@
     <div class="panel panel-body col-sm-12" id='bleach-container'>
 
         {{#each reddit}}
-        <a href='{{url}}'>
-            <div class="eye-bleach-container col-sm-3 text-center" style="background-image: url('{{thumbnail}}')">
-                <div class='row'>
-                    <div class='eye-bleach-title col-sm-12'><strong>{{title}}</strong></div>
-                </div>
-                <div class='row'>
-                    <div class='eye-bleach-img col-sm-6'>
-
-                    </div>
-                    <div class='favorite-div col-sm-6'>
-                        <button class='btn btn-danger btn-sm favorite-notes' data-toggle="modal" data-target="#noteModal">Note</button>
-                        <button class='btn btn-danger btn-sm delete-notes'>Delete Note</button>
+        <div class='eye-bleach-container'>
+            <div class='row'>
+                <div class='col-sm-12'>
+                    <div class='eye-bleach-title col-sm-12'>
+                        <strong>{{title}}</strong> <br/> {{upvotes}} upvotes
                     </div>
                 </div>
             </div>
-        </a>
+            <div class='row'>
+                <div class='col-sm-12'>
+                    <div class='thumbnail pull-left'>
+                        <a href='{{url}}'><img class='img-responsive' src='{{thumbnail}}' /></a>
+                    </div>
+                    <div class='favorite-div col-sm-6'>
+                        <a class='btn btn-info btn-sm comments' href='{{comments}}'>Reddit comments</a>
+                    </div>
+                </div>
+                <div class='favorite-div col-sm-6'>
+                    <button class='btn btn-danger btn-sm favorite-notes' data-toggle="modal" data-target="#noteModal" data-url='{{url}}' data-thumbnail='{{thumbnail}}' data-title='{{title}}' data-upvotes='{{upvotes}}' data-comments='{{comments}}'>Note</button>
+                    <button class='btn btn-danger btn-sm delete-notes'>Delete Note</button>
+                </div>
+            </div>
+
+        </div>
         {{/each}}
     </div>
 </div>
 
 
 {{!-- Note Modal --}}
-<!-- Modal -->
 <div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -37,7 +44,7 @@
                 <h4 class="modal-title" id="myModalLabel">Notes: </h4>
             </div>
             <div class="modal-body">
-                Notes:
+                {{!-- Notes go here --}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
