@@ -3,24 +3,32 @@
     <div class="panel panel-heading">
         <h1 class='panel-title'>Eye Bleach</h1>
     </div>
-    <div class="panel panel-body col-sm-12" id='bleach-container'>
-
+    <div class="panel panel-body col-sm-12" id='append-bleach-container'>
         {{#each reddit}}
-        <a href='{{url}}'>
-            <div class="eye-bleach-container col-sm-3 text-center" style="background-image: url('{{thumbnail}}')">
-                <div class='row'>
-                    <div class='eye-bleach-title col-sm-12'><strong>{{title}}</strong></div>
-                </div>
-                <div class='row'>
-                    <div class='eye-bleach-img col-sm-6'>
-
-                    </div>
-                    <div class='favorite-div col-sm-6'>
-                        <button class='btn btn-danger btn-sm favorite' data-url='{{url}}' data-thumbnail='{{thumbnail}}' data-title='{{title}}'>Favorite</button>
+        <div class='eye-bleach-container'>
+            <div class='row'>
+                <div class='col-sm-12'>
+                    <div class='eye-bleach-title col-sm-12'>
+                        <strong>{{title}}</strong> <br/> {{upvotes}} upvotes
                     </div>
                 </div>
             </div>
-        </a>
+            <div class='row'>
+                <div class='col-sm-12'>
+                    <div class='thumbnail pull-left'>
+                        <a href='{{url}}'><img class='img-responsive' src='{{thumbnail}}' /></a>
+                    </div>
+                    <div class='favorite-div col-sm-6'>
+                        <a class='btn btn-info btn-sm comments' href='{{commentsUrl}}'>Reddit comments</a>
+                    </div>
+                </div>
+                <div class='favorite-div col-sm-6'>
+                    <button class='btn btn-danger favorite' data-url='{{url}}' data-thumbnail='{{thumbnail}}' data-title='{{title}}'>Favorite</button>
+                </div>
+            </div>
+
+        </div>
         {{/each}}
     </div>
 </div>
+<script src='../assets/js/home.js'></script>

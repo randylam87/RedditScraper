@@ -25,6 +25,7 @@ app.set('view engine', 'handlebars');
 // Connect to database
 mongoose.connect('mongodb://localhost/reddit');
 
+
 require("./routes/api-routes.js")(app);
 // Server on
 app.listen(PORT, function (err) {

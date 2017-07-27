@@ -40,23 +40,28 @@ let favorite = (event) => {
 
 
 let getCurrentScrape = function () {
-  let url = []
+  console.log(`getCurrentScrape was clicked`);
+  let urls = [];
   // Loops through the DOM to get all currently scrapped items
   for (i = 0; i < $('.favorite').length; i++) {
-    url.push($($('.favorite')[i]).data('url'));
+    urls.push($($('.favorite')[i]).data('url'));
   }
   // Sends url array to /scrape route to process
-  $.get('/scrape', url, (data) => {
-    console.log(data);
-  })
-}
+  let urlsObj = {
+    "urls": urls
+  };
+  $.get('/scrape', urlsObj, (data) => {
+    console.log('response from get request');
+    console.log(`return data: ${data}`);
+  },JSON);
+};
 
 // Event handlers
-$('#scrapeBtn').on('click', () => {
+$('#btn-scrape').on('click', () => {
   // Sends an array of objects to the sever to process for duplicates
   getCurrentScrape();
   // Scrapes reddit/r/EyeBleach for top 100 posts
-  getEyeBleach();
+  // getEyeBleach();
 });
 
 $('#bleach-container').on('click', '.favorite', (event) => {
