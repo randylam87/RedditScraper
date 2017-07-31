@@ -123,8 +123,7 @@ module.exports = function (app) {
 
     // Cheerios Scrape and returns an array of objects
     let eyeBleachRequest = (cb) => {
-        //Testing with 10 limit
-        let scrapeUrl = 'https://www.reddit.com/r/eyebleach/?limit=10';
+        let scrapeUrl = 'https://www.reddit.com/r/eyebleach/?limit=100';
         let eyeBleachArr = [];
         request(scrapeUrl, (error, response, body) => {
             const $ = cheerio.load(body);
