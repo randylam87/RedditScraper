@@ -24,7 +24,8 @@
                     </div>
                 </div>
                 <div class='favorite-div col-sm-6'>
-                    <button class='btn btn-danger btn-sm favorite-notes' data-toggle="modal" data-target="#noteModal" data-url='{{url}}' data-thumbnail='{{thumbnail}}' data-title='{{title}}' data-upvotes='{{upvotes}}' data-comments='{{comments}}'>Note</button>
+                    <button class='btn btn-danger btn-sm favorite-notes' data-toggle="modal" data-target="#noteModal" data-url='{{url}}' data-thumbnail='{{thumbnail}}'
+                        data-title='{{title}}' data-upvotes='{{upvotes}}' data-comments='{{comments}}'>Note</button>
                     <button class='btn btn-danger btn-sm remove-favorites'>Remove From Favorites</button>
                 </div>
             </div>
@@ -45,6 +46,8 @@
             </div>
             <div class="modal-body" id='notes-modal'>
                 {{!-- Notes go here --}}
+                    <label for="comment">Enter Notes:</label>
+                    <textarea class="form-control" rows="5" id="notes-content" data-url=''></textarea><br />
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

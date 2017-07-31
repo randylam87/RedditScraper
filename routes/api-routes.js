@@ -72,7 +72,45 @@ module.exports = function (app) {
         });
     });
 
+    // Get Notes
+    app.get('/notes', (req, res) => {
+        console.log(req.body);
+        getNotes(req.query.url, (data) => {
+            if (data.notes[0].note <= 0) {
+                console.log('error');
+            } else {
+                res.send(data.notes[0].note);
+            }
+        });
+    });
 
+    // Save notes
+    app.post('/notes', (req, res) => {
+        let note = {
+            note: req.body.notes
+        };
+        let url = {
+            url: req.body.url
+        }
+        console.log(url);
+        let newNote = new Note(note);
+        newNote.save((err, doc) => {
+            console.log(doc);
+            if (err) {
+                console.log(err);
+            } else {
+                EyeBleach.findOneAndUpdate(url, {
+                    'notes': doc._id
+                }, (err, notedoc) => {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        res.send(notedoc);
+                    }
+                });
+            }
+        });
+    });
 
     // Cheerios Scrape and returns an array of objects
     let eyeBleachRequest = (cb) => {
@@ -106,6 +144,15 @@ module.exports = function (app) {
         EyeBleach.find({}, (error, doc) => {
             cb(doc);
         });
+    };
 
+    let getNotes = (url, cb) => {
+        EyeBleach.findOne({
+                url: url
+            })
+            .populate('notes')
+            .exec((error, doc) => {
+                cb(doc);
+            });
     };
 };

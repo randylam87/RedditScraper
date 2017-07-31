@@ -4,7 +4,8 @@ let Schema = mongoose.Schema;
 
 let NoteSchema = new Schema({
   note: {
-    type: String
+    type: String,
+    default: 'No Note'
   },
   time: {
     type: Date,
