@@ -20,47 +20,53 @@ module.exports = function (app) {
         let newlyScraped = [];
         eyeBleachRequest((results) => {
             let eyeBleachRequestResults = [];
-            // Converts results to an array of urls
             results.forEach((data, i) => {
-                // console.log(`Currently scraped items: ${i} ${data.url} `);
                 eyeBleachRequestResults.push(data.url);
             });
-            // Pushes results into a new Array if the url does not already exist on the DOM
             previouslyScraped.forEach((result, i) => {
                 if (eyeBleachRequestResults.indexOf(result) === -1) {
-                    // console.log(`${result} is not an index of recently scraped reddit data: ${eyeBleachRequestResults}
-                    // `);
                     newlyScraped.push(eyeBleachRequest);
-                } else {
-                    // console.log(`${result} is an index of recently scraped data at index ${eyeBleachRequestResults.indexOf(result)}
-                    // `);
-                }
+                } else {}
             });
             let returnObj = {
                 'newlyScraped': newlyScraped,
                 'numOfItems': newlyScraped.length
             };
-            // console.log(`returning to client: ${returnObj}`);
             res.send(returnObj);
         });
     });
 
     app.post('/favorite', (req, res) => {
-        let favoriteEyeBleach = new EyeBleach(req.body);
-        favoriteEyeBleach.save((err, doc) => {
-            if (err) {
-                console(err);
+        // savedItem is an object that contains title, url, thumbnail, & comments
+        let savedItem = req.body;
+        let favoriteEyeBleach = new EyeBleach(savedItem);
+
+        getFavorites((data) => {
+            let favoriteUrls = [];
+            data.forEach((result) => {
+                favoriteUrls.push(result.url);
+            });
+            // Checks if urls of favorited items match with something already favorited
+            if (favoriteUrls.indexOf(savedItem.url) === -1) {
+                console.log('not a match, saving');
+                favoriteEyeBleach.save((err, doc) => {
+                    if (err) {
+                        console(err);
+                    } else {
+                        res.send(doc);
+                    }
+                });
             } else {
-                res.send(doc);
+                console.log('match found, not saving');
             }
         });
     });
 
     // Routes For Favorites Page
     app.get('/favorites', (req, res) => {
-        EyeBleach.find({}, (error, doc) => {
+        getFavorites((data) => {
             let hbsObj = {
-                reddit: doc
+                reddit: data
             };
             res.render('favorites', hbsObj);
         });
@@ -68,7 +74,7 @@ module.exports = function (app) {
 
 
 
-    // Cheerios Scrape
+    // Cheerios Scrape and returns an array of objects
     let eyeBleachRequest = (cb) => {
         //Testing with 10 limit
         let scrapeUrl = 'https://www.reddit.com/r/eyebleach/?limit=10';
@@ -93,5 +99,13 @@ module.exports = function (app) {
             });
             cb(eyeBleachArr);
         });
+    };
+
+    // Query for favorites and returns array of objects via callback function
+    let getFavorites = (cb) => {
+        EyeBleach.find({}, (error, doc) => {
+            cb(doc);
+        });
+
     };
 };

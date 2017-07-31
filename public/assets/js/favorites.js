@@ -1,32 +1,32 @@
-// Queries for all notes for favorited items
+// Queries for all notes for favorited items and returns an object via callback.
 let showNotes = () => {
   $.get('/notes', (notes) => {
-    // Appends div with all scraped data to #eye-bleach-container
     appendNotes(notes);
   });
 };
 
+let saveNotes = () => {
+    $.post('/notes', (notes) => {
 
-let appendNotes = (queryResults) => {
-  queryResults.forEach((bleach) => {
-    let title = bleach.title;
-    let url = bleach.url;
-    let thumbnail = bleach.thumbnail;
-    let eyeBleachDiv = $(`
-    <div class="eye-bleach-container col-sm-2 text-center">
-            <div class='row'>
-                <div class='eye-bleach-title col-sm-12'><strong>${title}</strong></div>
-            </div>
-            <div class='row'>
-                <div class='eye-bleach-img col-sm-6'>
-                    <a href='${url}'><img class='thumbnail' src='${thumbnail}'></a>
-                </div>
-                <div class='favorite-div col-sm-6'>
-                    <button class='btn btn-danger btn-sm favorite' data-url="${url}" data-thumbnail="${thumbnail}" data-title="${title}">Favorite</button>
-                </div>
-            </div>
-        </div>
-    `);
-    $('#eye-bleach-container').append(eyeBleachDiv);
-  });
+    });
 };
+
+
+// Appends notes the modal-body (#notes-modal)
+let appendNotes = (notes) => {
+
+};
+
+// Deletes note from the database
+let deleteFavorite = () => {
+
+};
+
+// Event Handlers
+$('#append-bleach-container').on('click', '.favorite-notes', (event) => {
+    console.log(event.currentTarget);
+});
+
+$('#append-bleach-container').on('click', '.remove-favorites', (event) => {
+    console.log(event.currentTarget);
+});

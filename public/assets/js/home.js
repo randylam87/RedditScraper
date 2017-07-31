@@ -40,10 +40,9 @@ let favorite = (event) => {
   .done((results)=>{
     console.log(results);
   });
-  console.log($(event.currentTarget).parents('div.eye-bleach-container')[0]);
+  $($(event.currentTarget).parents('div.eye-bleach-container')[0]).remove();
   
 };
-
 
 let getCurrentScrape = function () {
   let urls = [];
@@ -59,16 +58,22 @@ let getCurrentScrape = function () {
   .done((data) => {
     // Data returns an object with an array of new urls (newlyScraped) and the length of the array (numofItems)
     console.log(`return data: ${data.numOfItems}`);
+    if(data.numOfItems === 0 ) {
+      $('#scraped-results-modal-body').html(`<h2>No new items to be scraped<br /><br />Please try again later.<h2>`);
+    } else {
+      $('#scraped-results-modal-body').html(`<h2>Newly scraped items: ${data.numOfItems}<h2>`);
+    }
+    
   }, JSON);
 };
 
 // Event handlers
+// Sends an array of objects to the sever to process for duplicates
 $('#btn-scrape').on('click', () => {
-  // Sends an array of objects to the sever to process for duplicates
   getCurrentScrape();
 });
 
-$('#append-bleach-container').on('click', '.favorite', (event) => {
   // Add item to favorites list
+$('#append-bleach-container').on('click', '.favorite', (event) => {
   favorite(event);
 });

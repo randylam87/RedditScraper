@@ -23,7 +23,8 @@
                     </div>
                 </div>
                 <div class='favorite-div col-sm-6'>
-                    <button class='btn btn-danger favorite' data-url='{{url}}' data-thumbnail='{{thumbnail}}' data-title='{{title}}' data-upvotes='{{upvotes}}' data-comments='{{comments}}'>Favorite</button>
+                    <button class='btn btn-danger favorite' data-url='{{url}}' data-thumbnail='{{thumbnail}}' data-title='{{title}}' data-upvotes='{{upvotes}}'
+                        data-comments='{{comments}}'>Favorite</button>
                 </div>
             </div>
 
@@ -31,4 +32,19 @@
         {{/each}}
     </div>
 </div>
+
+<div class="modal fade scraped-result-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class='modal-header text-center'>
+                <h1>/r/eyebleach</h1>
+            </div>
+            <div class='modal-body' id='scraped-results-modal-body'></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src='../assets/js/home.js'></script>

@@ -3,7 +3,7 @@
     <div class="panel panel-heading">
         <h1 class='panel-title'>Favorite Eye Bleaches</h1>
     </div>
-    <div class="panel panel-body col-sm-12" id='bleach-container'>
+    <div class="panel panel-body col-sm-12" id='append-bleach-container'>
 
         {{#each reddit}}
         <div class='eye-bleach-container'>
@@ -25,7 +25,7 @@
                 </div>
                 <div class='favorite-div col-sm-6'>
                     <button class='btn btn-danger btn-sm favorite-notes' data-toggle="modal" data-target="#noteModal" data-url='{{url}}' data-thumbnail='{{thumbnail}}' data-title='{{title}}' data-upvotes='{{upvotes}}' data-comments='{{comments}}'>Note</button>
-                    <button class='btn btn-danger btn-sm delete-notes'>Delete Note</button>
+                    <button class='btn btn-danger btn-sm remove-favorites'>Remove From Favorites</button>
                 </div>
             </div>
 
@@ -43,7 +43,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Notes: </h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id='notes-modal'>
                 {{!-- Notes go here --}}
             </div>
             <div class="modal-footer">
