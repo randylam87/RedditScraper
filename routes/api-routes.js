@@ -72,12 +72,21 @@ module.exports = function (app) {
         });
     });
 
+    app.post('/delete', (req, res) => {
+        console.log(req.body.url)
+        EyeBleach.remove({
+            url: req.body.url
+        }, (error, doc) => {
+            res.send('Deleted from favorites');
+        });
+    })
+
     // Get Notes
     app.get('/notes', (req, res) => {
         console.log(req.body);
         getNotes(req.query.url, (data) => {
-            if (data.notes[0].note <= 0) {
-                console.log('error');
+            if (data.notes <= 0) {
+                res.send('No notes found');
             } else {
                 res.send(data.notes[0].note);
             }

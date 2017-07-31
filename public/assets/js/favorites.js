@@ -18,6 +18,7 @@ let saveNotes = (event) => {
         url: url
     }, (data) => {
         console.log(data);
+        $('#noteModal').modal('toggle');
     });
 };
 
@@ -33,8 +34,14 @@ let appendNotes = (notes) => {
 };
 
 // Deletes note from the database
-let deleteFavorite = () => {
-
+let deleteFavorite = (event) => {
+    console.log($(event.currentTarget).data('url'));
+    $.post('/delete', {
+        url: $(event.currentTarget).data('url')
+    }, (data) => {
+        console.log(data);
+    })
+    $($(event.currentTarget).parents('div.eye-bleach-container')[0]).remove();
 };
 
 // Event Handlers
@@ -47,5 +54,5 @@ $('#noteModal').on('click', '#save-notes', (event) => {
 });
 
 $('#append-bleach-container').on('click', '.remove-favorites', (event) => {
-    console.log(event.currentTarget);
+    deleteFavorite(event);
 });

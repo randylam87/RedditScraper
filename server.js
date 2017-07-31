@@ -25,7 +25,8 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 // Connect to database
-mongoose.connect('mongodb://localhost/reddit');
+// mongoose.connect('mongodb://localhost/reddit');
+mongoose.connect('mongodb://heroku_dvf061mh:ptidfvt21nuf8ovht0d2rsalvm@ds011331.mlab.com:11331/heroku_dvf061mh');
 
 
 require("./routes/api-routes.js")(app);
